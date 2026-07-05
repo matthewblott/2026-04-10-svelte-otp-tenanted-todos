@@ -1,4 +1,3 @@
-<!-- src/routes/auth/login/+page.svelte -->
 <script lang="ts">
   import { safeParse } from 'valibot';
   import { EmailSchema } from '$lib/schemas/auth';

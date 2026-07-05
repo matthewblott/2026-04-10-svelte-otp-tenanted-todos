@@ -6,6 +6,7 @@ import { mkdirSync } from 'node:fs';
 mkdirSync('storage', { recursive: true });
 
 const sqlite = new Database('storage/auth.sqlite3');
+
 sqlite.pragma('journal_mode = WAL');
 sqlite.pragma('foreign_keys = ON');
 

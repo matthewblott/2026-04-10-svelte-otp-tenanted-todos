@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { safeParse } from 'valibot';
 import { EmailSchema } from '$lib/schemas/auth';
 import { flattenErrors } from '$lib/utils/validation';
-import { createOtpRequest, loginUser } from '$lib/auth/session';
+import { createOtpRequest} from '$lib/auth/session';
 import { sharedDb } from '$lib/db/shared';
 import { users } from '$lib/db/shared-schema';
 import { eq } from 'drizzle-orm';

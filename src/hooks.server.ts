@@ -1,4 +1,3 @@
-// src/hooks.server.ts
 import type { Handle } from '@sveltejs/kit';
 import { sharedDb } from '$lib/db/shared';
 import { users, sessions } from '$lib/db/shared-schema';
@@ -32,6 +31,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (session) {
       event.locals.user   = session.user;
       event.locals.userDb = getUserDb(session.user.id);
+      // Kysley code to go here ...
+      
     }
   }
 

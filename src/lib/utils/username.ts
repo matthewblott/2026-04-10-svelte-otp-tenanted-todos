@@ -16,6 +16,8 @@ export async function uniqueUsername(base: string): Promise<string> {
     const existing = await sharedDb.query.users.findFirst({
       where: eq(users.username, candidate),
     });
+    // Kysley code to go here ...
+
     if (!existing) return candidate;
     candidate = `${base}${counter++}`;
   }
