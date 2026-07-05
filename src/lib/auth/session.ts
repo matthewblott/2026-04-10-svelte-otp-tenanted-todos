@@ -18,7 +18,7 @@ export function generateOtp(): string {
 
 export async function createOtpRequest(
   email: string,
-  type: 'login' | 'register' | 'upgrade',
+  type: 'login' | 'register' | 'change-email',
 ): Promise<string> {
   const code      = generateOtp();
 
@@ -30,10 +30,8 @@ export async function createOtpRequest(
   await sharedDb.delete(otpRequests).where(
     and(eq(otpRequests.email, email), eq(otpRequests.type, type))
   );
-  // Kysley code to go here ...
 
   await sharedDb.insert(otpRequests).values({ email, type, codeHash, expiresAt });
-  // Kysley code to go here ...
 
   return code;
 }
@@ -41,7 +39,7 @@ export async function createOtpRequest(
 export async function verifyOtp(
   email: string,
   code: string,
-  type: 'login' | 'register' | 'upgrade',
+  type: 'login' | 'register' | 'change-email',
 ): Promise<boolean> {
   const codeHash = hashCode(code);
 
@@ -57,7 +55,6 @@ export async function verifyOtp(
   if (!request) return false;
 
   await sharedDb.delete(otpRequests).where(eq(otpRequests.id, request.id));
-  // Kysley code to go here ...
 
   return true;
 }
@@ -67,7 +64,6 @@ async function mintSession(userId: number): Promise<string> {
   const expiresAt = new Date(Date.now() + SESSION_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
 
   await sharedDb.insert(sessions).values({ userId, token, expiresAt });
-  // Kysley code to go here ...
 
   return token;
 }
@@ -76,10 +72,8 @@ export async function createAccount(email: string): Promise<{ token: string; use
   const base     = deriveUsername(email);
   const username = await uniqueUsername(base);
   const [user]   = await sharedDb.insert(users).values({ email, username }).returning();
-  // Kysley code to go here ...
 
   getUserDb(user.id);
-  // Kysley code to go here ...
 
   const token = await mintSession(user.id);
   return { token, username };
@@ -87,7 +81,6 @@ export async function createAccount(email: string): Promise<{ token: string; use
 
 export async function loginUser(email: string): Promise<{ token: string; username: string } | null> {
   const user = await sharedDb.query.users.findFirst({ where: eq(users.email, email) });
-  // Kysley code to go here ...
 
   if (!user) return null;
   const token = await mintSession(user.id);
@@ -98,7 +91,6 @@ export async function createGuestAccount(deviceToken: string): Promise<{ token: 
   let user = await sharedDb.query.users.findFirst({
     where: eq(users.deviceToken, deviceToken),
   });
-  // Kysley code to go here ...
 
   if (!user) {
     const username = await uniqueUsername(guestUsername());
@@ -106,7 +98,6 @@ export async function createGuestAccount(deviceToken: string): Promise<{ token: 
       .values({ isGuest: true, deviceToken, username })
       .returning();
     getUserDb(user.id);
-    // Kysley code to go here ...
   } 
 
   const token = await mintSession(user.id);
@@ -123,17 +114,14 @@ export async function upgradeGuestAccount(
   await sharedDb.update(users)
     .set({ email, username, isGuest: false, deviceToken: null })
     .where(eq(users.id, userId));
-  // Kysley code to go here ...
 }
 
 export async function deleteSession(token: string): Promise<void> {
   await sharedDb.delete(sessions).where(eq(sessions.token, token));
-  // Kysley code to go here ...
 }
 
 export async function changeUserEmail(userId: number, email: string): Promise<void> {
   await sharedDb.update(users)
     .set({ email })
     .where(eq(users.id, userId));
-  // Kysley code to go here ...
 }

@@ -1,7 +1,7 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { safeParse } from 'valibot';
-import { EmailSchema, VerifySchema } from '$lib/schemas/auth';
+import { EmailSchema } from '$lib/schemas/auth';
 import { UsernameSchema } from '$lib/schemas/user';
 import { flattenErrors } from '$lib/utils/validation';
 import { createOtpRequest, verifyOtp, upgradeGuestAccount, changeUserEmail } from '$lib/auth/session';
@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 };
 
 export const actions: Actions = {
-  requestUpgrade: async ({ request, locals }) => {
+  requestUpgrade: async ({ request }) => {
     const data   = Object.fromEntries(await request.formData());
     const result = safeParse(EmailSchema, data);
 

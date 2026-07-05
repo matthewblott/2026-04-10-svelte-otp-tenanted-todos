@@ -25,7 +25,6 @@ export const actions: Actions = {
         description: result.output.description ?? null,
       })
       .returning();
-    // Kysley code to go here ...
 
     redirect(302, `/${locals.user!.username}/todos/${todo.id}`);
   },

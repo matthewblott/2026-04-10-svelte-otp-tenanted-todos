@@ -1,4 +1,3 @@
-// src/routes/(app)/[tenant]/+layout.server.ts
 import type { LayoutServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 

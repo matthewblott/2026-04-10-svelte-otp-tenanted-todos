@@ -11,7 +11,6 @@ export const load: PageServerLoad = async ({ locals, params }) => {
   const todo = await locals.userDb!.query.todos.findFirst({
     where: eq(todos.id, id),
   });
-  // Kysley code to go here ...
 
   if (!todo) error(404, 'Todo not found');
 
@@ -36,7 +35,6 @@ export const actions: Actions = {
         updatedAt:   new Date(),
       })
       .where(eq(todos.id, id));
-    // Kysley code to go here ...
 
     redirect(302, `/${locals.user!.username}/todos/${id}?saved=1`);
   },
@@ -46,7 +44,6 @@ export const actions: Actions = {
     const todo = await locals.userDb!.query.todos.findFirst({
       where: eq(todos.id, id),
     });
-    // Kysley code to go here ...
 
     if (!todo) error(404, 'Todo not found');
 
@@ -54,7 +51,6 @@ export const actions: Actions = {
       .update(todos)
       .set({ completed: !todo.completed, updatedAt: new Date() })
       .where(eq(todos.id, id));
-    // Kysley code to go here ...
 
     redirect(302, `/${locals.user!.username}/todos/${id}`);
   },
@@ -65,7 +61,6 @@ export const actions: Actions = {
     await locals.userDb!
       .delete(todos)
       .where(eq(todos.id, id));
-    // Kysley code to go here ...
 
     redirect(302, `/${locals.user!.username}/todos`);
   },
