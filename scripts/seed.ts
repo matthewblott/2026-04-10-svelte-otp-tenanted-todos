@@ -4,7 +4,7 @@ import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import * as sharedSchema from '../src/lib/db/shared-schema.js';
 import * as appSchema from '../src/lib/db/app-schema.js';
-import { eq, and } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 mkdirSync('storage/data', { recursive: true });
 
