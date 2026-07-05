@@ -48,7 +48,7 @@
 		"dialect": "sqlite",
 		"singularize": true,
 		"camelCase": true,
-		"outFile": "./src/lib/schema.ts",
+		"outFile": "./src/lib/schema/auth.ts",
 		"url": "./storage/auth.sqlite3",
 		"excludePattern": "{goose_db_version,foreign_keys_view,indexes_view}",
 		"overrides": {

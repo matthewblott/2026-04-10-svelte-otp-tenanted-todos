@@ -1,4 +1,3 @@
-// src/app.d.ts
 import type { InferSelectModel } from 'drizzle-orm';
 import type { users } from '$lib/db/shared-schema';
 import type { getUserDb } from '$lib/db/app';

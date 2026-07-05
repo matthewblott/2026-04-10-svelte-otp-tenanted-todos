@@ -3,7 +3,7 @@ import { Kysely } from 'kysely';
 import { Database as BunDatabase } from 'bun:sqlite';
 import { type SqliteDatabase } from 'kysely';
 import { type SqliteStatement } from 'kysely';
-import { type DB } from '$lib/schema';
+import { type DB } from '$lib/schema/auth';
 import type { SQLQueryBindings } from 'bun:sqlite';
 import { env } from '$env/dynamic/private';
 
@@ -47,5 +47,3 @@ export const db = new Kysely<DB>({
     }
   },
 });
-
-
