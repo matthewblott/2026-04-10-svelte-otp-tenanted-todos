@@ -1,4 +1,3 @@
-// src/lib/auth/session.ts
 import { randomBytes, createHash } from 'node:crypto';
 import { sharedDb } from '$lib/db/shared';
 import { sessions, otpRequests, users } from '$lib/db/shared-schema';
@@ -22,6 +21,9 @@ export async function createOtpRequest(
   type: 'login' | 'register' | 'upgrade',
 ): Promise<string> {
   const code      = generateOtp();
+
+  console.log(`OTP code: ${code}`);
+
   const codeHash  = hashCode(code);
   const expiresAt = new Date(Date.now() + OTP_EXPIRY_MS);
 

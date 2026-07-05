@@ -18,7 +18,8 @@
     "db:studio:shared":   "drizzle-kit studio --config=./config/drizzle.shared.config.ts",
     "db:studio:app":      "drizzle-kit studio --config=./config/drizzle.app.config.ts",
     "db:seed":            "tsx scripts/seed.ts",
-    "db:reset":           "rm -f storage/shared.db storage/template.db storage/data/*.db && bun run db:push && bun run db:seed"
+    "db:reset":           "rm -f storage/auth.sqlite3 storage/template.sqlite3 storage/data/*.sqlite3 && bun run db:push && bun run db:seed",
+		"generate:types":     "kysely-codegen"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.1",
@@ -27,6 +28,7 @@
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/nodemailer": "^7.0.11",
 		"drizzle-kit": "^0.31.10",
+		"kysely-codegen": "^0.20.0",
 		"svelte": "^5.56.1",
 		"svelte-check": "^4.6.0",
 		"tsx": "^4.21.0",
@@ -36,7 +38,21 @@
 	"dependencies": {
 		"better-sqlite3": "^12.8.0",
 		"drizzle-orm": "^0.45.2",
+		"kysely": "^0.29.2",
 		"nodemailer": "^8.0.4",
 		"valibot": "^1.3.1"
+	},
+  	"kysely-codegen": {
+		"dialect": "sqlite",
+		"singularize": true,
+		"camelCase": true,
+		"outFile": "./src/lib/schema.ts",
+		"url": "./storage/auth.sqlite3",
+    "excludePattern": "{goose_db_version,foreign_keys_view,indexes_view}",
+    "overrides": {
+      "columns": {
+      }
+    }
 	}
+
 }

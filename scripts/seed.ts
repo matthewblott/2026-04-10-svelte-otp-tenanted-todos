@@ -8,13 +8,13 @@ import { eq, and } from 'drizzle-orm';
 
 mkdirSync('storage/data', { recursive: true });
 
-const sharedSqlite = new Database('storage/shared.db');
+const sharedSqlite = new Database('storage/auth.sqlite3');
 sharedSqlite.pragma('journal_mode = WAL');
 sharedSqlite.pragma('foreign_keys = ON');
 const sharedDb = drizzle(sharedSqlite, { schema: sharedSchema });
 
 function provisionUserDb(userId: number) {
-  const sqlite = new Database(`storage/data/${userId}.db`);
+  const sqlite = new Database(`storage/data/${userId}.sqlite3`);
   sqlite.pragma('journal_mode = WAL');
   sqlite.pragma('foreign_keys = ON');
   const db = drizzle(sqlite, { schema: appSchema });

@@ -1,4 +1,3 @@
-// src/lib/jobs/worker.ts
 import { sharedDb } from '$lib/db/shared';
 import { jobs } from '$lib/db/shared-schema';
 import { eq, lte, and } from 'drizzle-orm';

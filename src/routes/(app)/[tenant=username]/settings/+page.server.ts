@@ -50,6 +50,7 @@ export const actions: Actions = {
       html:    otpTemplate(code, 'your account'),
     });
 
+
     return { step: 'verify', email, action: 'upgrade' };
   },
 
@@ -57,7 +58,7 @@ export const actions: Actions = {
     const data  = Object.fromEntries(await request.formData());
     const email = String(data.email);
     const code  = String(data.code);
-
+    
     const valid = await verifyOtp(email, code, 'upgrade');
 
     if (!valid) {
