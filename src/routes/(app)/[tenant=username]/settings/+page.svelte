@@ -212,4 +212,12 @@
   </section>
 
   <p><a href="/{data.user.username}/todos">Back to todos</a></p>
+
+  <form
+    method="POST"
+    action="?/signOut"
+    onsubmit={(e) => { if (!confirm('Are you sure you want to sign out?')) e.preventDefault(); }}
+  >
+    <button type="submit">Sign out</button>
+  </form>
 </main>

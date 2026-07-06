@@ -4,7 +4,7 @@ import { safeParse } from 'valibot';
 import { EmailSchema } from '$lib/schemas/auth';
 import { UsernameSchema } from '$lib/schemas/user';
 import { flattenErrors } from '$lib/utils/validation';
-import { createOtpRequest, verifyOtp, upgradeGuestAccount, changeUserEmail } from '$lib/auth/session';
+import { createOtpRequest, verifyOtp, upgradeGuestAccount, changeUserEmail, deleteSession } from '$lib/auth/session';
 import { sharedDb } from '$lib/db/shared';
 import { users } from '$lib/db/shared-schema';
 import { eq } from 'drizzle-orm';
@@ -178,5 +178,14 @@ export const actions: Actions = {
     await changeUserEmail(locals.user!.id, email);
 
     redirect(302, `/${locals.user!.username}/settings?email-changed=1`);
+  },
+
+  signOut: async ({ cookies }) => {
+    const token = cookies.get('session');
+    if (token) {
+      await deleteSession(token);
+    }
+    cookies.delete('session', { path: '/' });
+    redirect(302, '/');
   },
 };
